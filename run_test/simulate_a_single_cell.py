@@ -5,7 +5,7 @@ import sys
 sys.path.append('../')
   
 # importing
-from src import * 
+from src.main import * 
 
 # Simulate a single cell
 run(
