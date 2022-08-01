@@ -2,10 +2,10 @@
 import sys
   
 # setting path
-sys.path.append('../src')
+sys.path.append('../')
   
 # importing
-impoart src.main 
+from src import * 
 
 # Simulate a single cell
 run(
