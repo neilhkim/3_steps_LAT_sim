@@ -311,3 +311,28 @@ def draw_LATc_propensity():
     ax.set_ylabel(r'$P_{LAT}$', labelpad=10)
     ax.legend(frameon=False, fontsize=9, loc='upper right')
     plt.show()
+
+
+# Simulate a single cell
+# run(
+#     ligand_densities = [.1], 
+#     kunbind_list = [0.042], 
+#     endtime=60, 
+#     plotTimeTraces=True, 
+#     nLATthreshold=3, 
+#     early_termination_option=True,
+#     probabilistic_activation=False,
+#     )
+
+# Draw response curves
+# run(
+#       ligand_densities = [0.01, .03, .1, .3, .7, 1], 
+#       kunbind_list = [0.11], #[0.011, 0.042, 0.11], 
+#       nCell=30, 
+#       n_P_act_estimation=3,
+#     #   nLATthreshold = 3, 
+#       endtime=200, 
+#       plotResponseCurve=True, 
+#       probabilistic_activation=True,
+#       early_termination_option=False,
+#     )
