@@ -24,8 +24,8 @@ mpl.rcParams['xtick.minor.width'] = 2
 mpl.rcParams['ytick.major.width'] = 2
 mpl.rcParams['ytick.minor.width'] = 2
 
-def LAT_formation_func(t, a=2, scale=14):
-    ret = 0.3 * stats.gamma.pdf(t, a=2, scale=14)
+def LAT_formation_func(t):
+    ret = 0.3 * stats.gamma.pdf(t, a=4, scale=7) #a=2.86, scale=7.03 for pMHC a=2.52, scale=10.48 for CD80
     return ret
 
 def calc_propensities(pMhcLifeTimes, kbind, kunbind):
@@ -36,9 +36,7 @@ def calc_propensities(pMhcLifeTimes, kbind, kunbind):
     propensities = np.append(propensities, kunbind * nBoundPMhc) # Scenario 1)
     if pMhcLifeTimes.size > 0: # Scenario 2)
         for t in np.nditer(pMhcLifeTimes):
-            #########################################################################################
-            LAT_assembly_rate = LAT_formation_func(t, a=2, scale=14)
-            #########################################################################################
+            LAT_assembly_rate = LAT_formation_func(t)
             propensities = np.append(propensities, LAT_assembly_rate)
     return propensities
 
