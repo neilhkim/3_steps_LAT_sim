@@ -211,7 +211,7 @@ def run(
     kbind_list = [ld * LIGAND_DENSITY_TO_KBIND_FACTOR for ld in ligand_densities]
     df = pd.DataFrame(columns = ['kunbind', 'kbind', 'ligand_density', 'prob_activate', 'nCell'])
     for kunbind in kunbind_list:
-        print(f'--- kunbind  {kunbind}')
+        print(f'\n================ LIGAND:  kunbind = {kunbind} / s')
         for kbind in kbind_list:
             # df = pd.DataFrame()
             args = (kbind, kunbind)
@@ -224,7 +224,9 @@ def run(
                     description=f'{nCell} cells',
                 ) 
             display(progbar)
-            print(f'kbind  {kbind:.4f}')
+            print(f'\n~~~ kunbind = {kunbind} / s, ligand density = {kbind/LIGAND_DENSITY_TO_KBIND_FACTOR:.3f} / um2')
+            status = f'ligand: {kunbind}/s density: {kbind/LIGAND_DENSITY_TO_KBIND_FACTOR:.3f}/um2'
+            print(status)
             for j in range(n_P_act_estimation):
                 nActivated = 0
                 progbar.value = 0
@@ -244,7 +246,7 @@ def run(
                             nActivated += 1
                 prob_activate = nActivated / nCell
                 ligand_density = kbind / LIGAND_DENSITY_TO_KBIND_FACTOR
-                print(f'P_act(n={nCell}): {prob_activate}')
+                print(f'>>> P_act(nCell={nCell}): {prob_activate}')
                 df = pd.concat([df, pd.DataFrame.from_records(
                     [{
                     'kunbind' : kunbind, 
@@ -263,7 +265,7 @@ def run(
                     j = 0
                     x = time_points
                     y = pMhcLifeLogs
-                    axs[j].plot(x, sum(~np.isnan(y)), linewidth=2, color='pink')
+                    axs[j].plot(x, sum(~np.isnan(y)), linewidth=2, color='crimson')
                     axs[j].xaxis.set_tick_params(direction='in')
                     axs[j].yaxis.set_tick_params(direction='in')
                     axs[j].set_xlabel('Dwell time (s)')
