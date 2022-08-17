@@ -329,12 +329,12 @@ def run(
                 outputname = str(datetime.datetime.now())
                 outputname = outputname.replace(':', '_')
                 plt.savefig(f'{outputname}.png', dpi=300, transparent=False, bbox_inches='tight')
-                plt.savefig(f'{outputname}.pdf', transparent=True, bbox_inches='tight'
+                plt.savefig(f'{outputname}.pdf', transparent=True, bbox_inches='tight')
         plt.show()
 
 def draw_LATc_propensity():
     x = np.linspace(0, 100, 100)
-    y = [LAT_formation_func(s, a=2, scale=14) for s in x]
+    y = [LAT_formation_func(s) for s in x]
     fig = plt.figure(figsize=(5, 2)) # The unit is inches
     ax = fig.add_axes([0.2, 0.2, 0.6, .6]) # This unit is percentage
     ax.plot(
