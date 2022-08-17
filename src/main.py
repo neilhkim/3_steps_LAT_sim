@@ -11,6 +11,8 @@ from csv import writer
 import pandas as pd
 import itertools
 import sys
+from ipywidgets import FloatProgress, IntProgress
+from IPython.display import display
 
 mpl.rcParams['pdf.fonttype'] = 42
 plt.rcParams['font.size'] = 12
@@ -216,10 +218,18 @@ def run(
             # Initialize output array
             samples = np.empty((nCell, len(time_points), 2), dtype=int)
             pMhcLifeLogs = np.array([])
+            # instantiate the bar
+            progbar = IntProgress(
+                    min=0, max=nCell, 
+                    description=f'{nCell} cells',
+                ) 
+            display(progbar)
             print(f'kbind  {kbind:.4f}')
             for j in range(n_P_act_estimation):
                 nActivated = 0
+                progbar.value = 0
                 for i in range(nCell):
+                    progbar.value += i
                     samples[i,:,:], temp = gillespie_ssa(calc_propensities, time_points, args=args, nLATthreshold=nLATthreshold, early_termination_option=early_termination_option)
                     pMhcLifeLogs = np.append(pMhcLifeLogs, temp)
                     pMhcLifeLogs = np.reshape(pMhcLifeLogs, (-1,len(time_points)))
