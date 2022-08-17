@@ -66,7 +66,7 @@ def gillespie_draw(propensity_func, pMhcLifeTimes, args=()):
     rxn = sample_discrete(rxn_probs)
     return rxn, time
 
-def gillespie_ssa(propensity_func, time_points, args=(), nLATthreshold=3,early_termination_option=False):
+def gillespie_ssa(propensity_func, time_points, args=(), nLATthreshold=3, early_termination_option=False, stop_at_current_lat_n=100):
     # Initialize output
     nSpecies = 2
     pop_out = np.empty((len(time_points), nSpecies), dtype=int)
@@ -158,9 +158,12 @@ def gillespie_ssa(propensity_func, time_points, args=(), nLATthreshold=3,early_t
         
         pop_out[i_time:min(i,len(time_points))] = population_previous
         if early_termination_option:
-          if nLat >= nLATthreshold:
-              pop_out[i:len(time_points)] = [-1, nLat]
-              break;
+            if nLat >= nLATthreshold:
+                pop_out[i:len(time_points)] = [-1, nLat]
+                break;
+        if nLat >= stop_at_current_lat_n:
+            pop_out[i:len(time_points)] = [-1, nLat+10]
+            break; 
 
         bNotP_indices = [item for item in boundPMhcIndices if item not in productivePMhcIndices]
         bAndP_indices = [item for item in boundPMhcIndices if item in productivePMhcIndices]
@@ -232,7 +235,11 @@ def run(
                 progbar.value = 0
                 for i in range(nCell):
                     progbar.value += i
-                    samples[i,:,:], temp = gillespie_ssa(calc_propensities, time_points, args=args, nLATthreshold=nLATthreshold, early_termination_option=early_termination_option)
+                    samples[i,:,:], temp = gillespie_ssa(
+                                                            calc_propensities, time_points, args=args, 
+                                                            nLATthreshold=nLATthreshold, early_termination_option=early_termination_option, 
+                                                            stop_at_current_lat_n=stop_at_current_lat_n
+                                                         )
                     pMhcLifeLogs = np.append(pMhcLifeLogs, temp)
                     pMhcLifeLogs = np.reshape(pMhcLifeLogs, (-1,len(time_points)))
                     
@@ -317,7 +324,10 @@ def draw_LATc_propensity():
     y = [LAT_formation_func(s, a=2, scale=14) for s in x]
     fig = plt.figure(figsize=(5, 2)) # The unit is inches
     ax = fig.add_axes([0.2, 0.2, 0.6, .6]) # This unit is percentage
-    ax.plot(x, y, color='cornflowerblue', label='0.3 * stats.gamma.pdf\n(t, a=2, scale=14)', linewidth=3)
+    ax.plot(
+                x, y, color='cornflowerblue', #label='0.3 * stats.gamma.pdf\n(t, a=2, scale=14)', 
+                linewidth=3
+           )
     ax.set_title('LAT formation propensity', fontsize=14,)
     ax.set_xlabel(r'bound time (s)', labelpad=10)
     ax.set_ylabel(r'$P_{LAT}$', labelpad=10)
