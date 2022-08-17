@@ -1,5 +1,5 @@
 # <Gillespie simulation combining "pMHC binding - LAT nucleation - T-cell activation">
-# 3_steps_LAT_sim
+# T-cell_activation_model
 
 Created by: Neil H Kim
 
