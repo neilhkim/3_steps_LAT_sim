@@ -207,7 +207,7 @@ def run(
     # The known kunbind of MCC is 0.042/s and T102S is 0.11/s
     # np.random.seed(51) # Seed random number generator for reproducibility
     time_points = np.linspace(0, endtime, nTimePoints)
-    LIGAND_DENSITY_TO_KBIND_FACTOR = 3.83 # Measured by Darren and Mark.
+    LIGAND_DENSITY_TO_KBIND_FACTOR = 1.3 # Measured by Darren and Mark.
     kbind_list = [ld * LIGAND_DENSITY_TO_KBIND_FACTOR for ld in ligand_densities]
     df = pd.DataFrame(columns = ['kunbind', 'kbind', 'ligand_density', 'prob_activate', 'nCell'])
     for kunbind in kunbind_list:
