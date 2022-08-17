@@ -299,10 +299,10 @@ def run(
     print(df)
     print()
     if make_output_files:
-    if outputname == '':
-        outputname = str(datetime.datetime.now())
-        outputname = outputname.replace(':', '_')
-        df.to_csv(f'{outputname}.csv')
+        if outputname == '':
+            outputname = str(datetime.datetime.now())
+            outputname = outputname.replace(':', '_')
+            df.to_csv(f'{outputname}.csv')
 
     if plotResponseCurve:
         n_kunbinds = len(kunbind_list)
