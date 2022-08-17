@@ -350,24 +350,28 @@ def draw_LATc_propensity():
 
 # Simulate a single cell
 # run(
-#     ligand_densities = [.1], 
-#     kunbind_list = [0.042], 
-#     endtime=60, 
+#     ligand_densities = [1], 
+#     kunbind_list = [0.11], 
+#     endtime=300, 
 #     plotTimeTraces=True, 
-#     nLATthreshold=3, 
-#     early_termination_option=True,
+#     nLATthreshold=1000, 
+#     early_termination_option=False,
 #     probabilistic_activation=False,
+#     stop_at_current_lat_n=100
 #     )
 
 # Draw response curves
 # run(
-#       ligand_densities = [0.01, .03, .1, .3, .7, 1], 
-#       kunbind_list = [0.11], #[0.011, 0.042, 0.11], 
-#       nCell=30, 
-#       n_P_act_estimation=3,
-#     #   nLATthreshold = 3, 
-#       endtime=200, 
+#       ligand_densities = [100],#[0.001, 0.01, 0.03, 0.1, 0.2, 0.3, 0.7, 1],
+#       kunbind_list = [1.1],#[0.01, 0.05, 0.1, 0.3, 1], #[3.3, 1.1], #[[3.5, 1.1, 0.35, 0.11, 0.042, 0.035, 0.011, 0.0035]], 
+#       nCell = 1, 
+#       n_P_act_estimation= 100,
+#       # nLATthreshold = 5, 
+#       endtime=300, 
 #       plotResponseCurve=True, 
 #       probabilistic_activation=True,
 #       early_termination_option=False,
+#       make_output_files=True,
+#       stop_at_current_lat_n=10,
+#       outputname = 'a=5, shape=5.6',
 #     )
