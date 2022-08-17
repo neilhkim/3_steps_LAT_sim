@@ -13,6 +13,7 @@ import itertools
 import sys
 from ipywidgets import FloatProgress, IntProgress
 from IPython.display import display
+import datetime
 
 mpl.rcParams['pdf.fonttype'] = 42
 plt.rcParams['font.size'] = 12
@@ -200,6 +201,9 @@ def run(
     plotResponseCurve = False,
     early_termination_option = False,
     probabilistic_activation = False,
+    make_output_files = False,
+    stop_at_current_lat_n = 100,
+    outputname = ''
     ):
 
     if probabilistic_activation and early_termination_option:
@@ -294,6 +298,11 @@ def run(
     print()
     print(df)
     print()
+    if make_output_files:
+    if outputname == '':
+        outputname = str(datetime.datetime.now())
+        outputname = outputname.replace(':', '_')
+        df.to_csv(f'{outputname}.csv')
 
     if plotResponseCurve:
         n_kunbinds = len(kunbind_list)
@@ -315,6 +324,12 @@ def run(
         ax.legend(frameon=False, fontsize=12, loc="upper left")
         fig.suptitle('Activation probability Vs. pMHC surface density\n', fontsize=12,)
         plt.xscale('log')
+        if make_output_files:
+            if outputname == '':
+                outputname = str(datetime.datetime.now())
+                outputname = outputname.replace(':', '_')
+                plt.savefig(f'{outputname}.png', dpi=300, transparent=False, bbox_inches='tight')
+                plt.savefig(f'{outputname}.pdf', transparent=True, bbox_inches='tight'
         plt.show()
 
 def draw_LATc_propensity():
