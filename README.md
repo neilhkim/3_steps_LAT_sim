@@ -1,11 +1,8 @@
-# <Gillespie simulation combining "pMHC binding - LAT nucleation - T-cell activation">
-# T-cell_activation_model
-
+# Stochastic T-cell activation Model
 Created by: Neil H Kim
 
-![ref](https://i.imgur.com/gfRofsE.png)
+<img src="https://gcdnb.pbrd.co/images/zNNZlzW9FEBI.png" width="600">  
 
-
-![ref](https://i.imgur.com/8n7tNzF.png)
+<img src="https://i.imgur.com/SsFsMJI.png" width="600">
 
 Executable online notebook: http://tinyurl.com/9x9sydsa
